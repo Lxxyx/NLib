@@ -6,8 +6,13 @@ const rp = require('request-promise');
 const fsp = require('fs-promise');
 const cheerio = require('cheerio');
 const separte = '-----------------------------------------';
+
+var queueLength, 
+    wheel = 0;
+
 const readList = async function(filePath) {
   let booklist = JSON.parse(await fsp.readFile(filePath, 'utf-8'));
+  queueLength = booklist.length;
   booklist.forEach(val => {
     getPage(val)
   })
@@ -49,9 +54,23 @@ const getPage = async function(uri) {
       console.log(chalk.yellow(`${title}========> 暂无可借书籍`));
     }
 
+    queueLength -= 1;
+
+    if (queueLength === 0) {
+      console.log(chalk.white(separte))
+      wheel+=1;
+      console.log(chalk.white(`第 ${wheel} 轮结束`))
+      console.log(chalk.white(separte))
+    }
+
   } catch (err) {
     console.log(chalk.red(err))
   }
 }
 
 readList('./list.json')
+setInterval(function() {
+  if (queueLength > 0) return;
+  readList('./list.json')
+}, 1*60*1000)
+

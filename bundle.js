@@ -13,6 +13,10 @@ var rp = require('request-promise');
 var fsp = require('fs-promise');
 var cheerio = require('cheerio');
 var separte = '-----------------------------------------';
+
+var queueLength,
+    wheel = 0;
+
 var readList = function () {
   var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(filePath) {
     var booklist;
@@ -28,11 +32,12 @@ var readList = function () {
             _context.t1 = _context.sent;
             booklist = _context.t0.parse.call(_context.t0, _context.t1);
 
+            queueLength = booklist.length;
             booklist.forEach(function (val) {
               getPage(val);
             });
 
-          case 6:
+          case 7:
           case 'end':
             return _context.stop();
         }
@@ -108,7 +113,16 @@ var getPage = function () {
                         console.log(chalk.yellow(title + '========> 暂无可借书籍'));
                       }
 
-                    case 14:
+                      queueLength -= 1;
+
+                      if (queueLength === 0) {
+                        console.log(chalk.white(separte));
+                        wheel += 1;
+                        console.log(chalk.white('第 ' + wheel + ' 轮结束'));
+                        console.log(chalk.white(separte));
+                      }
+
+                    case 16:
                     case 'end':
                       return _context2.stop();
                   }
@@ -150,3 +164,7 @@ var getPage = function () {
 }();
 
 readList('./list.json');
+setInterval(function () {
+  if (queueLength > 0) return;
+  readList('./list.json');
+}, 1 * 60 * 1000);
