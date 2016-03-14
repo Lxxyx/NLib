@@ -33,9 +33,9 @@ request.get({ url: firstPage, jar: j }, function (err, res, body) {
       },
       form: {
         // 填你的账号
-        "IPT_LOGINUSERNAME": '',
+        "IPT_LOGINUSERNAME": '7102314023',
         // 填你的密码
-        "IPT_LOGINPASSWORD": ''
+        "IPT_LOGINPASSWORD": 'a123123'
       }
     };
     request(Options, function (error, resp, html) {
@@ -55,6 +55,7 @@ request.get({ url: firstPage, jar: j }, function (err, res, body) {
           'Referer': 'http://online.ncu.edu.cn/eol/homepage/common/'
         }
       };
+      console.log(iconv.decode(html,'gb2312'))
       if (resp.statusCode === 302) {
         request(mainJspOptions, function (errors, response, htmlS) {
           var iconvHtml = iconv.decode(htmlS, 'gb2312');

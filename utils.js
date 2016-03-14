@@ -7,6 +7,8 @@ const isBorrow = function(title, state) {
       return 1;
     }
     return 0;
+  } else if (state.data === "新书：正在上架") {
+    return 1;
   }
   return 0;
 }

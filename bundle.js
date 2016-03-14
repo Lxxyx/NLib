@@ -102,7 +102,7 @@ var getPage = function () {
                       if (canBorrowNum > 0) {
                         console.log(separte);
                         console.log(chalk.green(title));
-                        console.log(chalk.white('=> ' + canBorrowNum + '本可借   ' + '位置' + location));
+                        console.log(chalk.white('=> ' + canBorrowNum + '本可借   ' + '位置 ' + location));
                       } else {
                         console.log(separte);
                         console.log(chalk.yellow(title + '========> 暂无可借书籍'));
