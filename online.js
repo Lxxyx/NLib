@@ -1,18 +1,15 @@
 import 'babel-polyfill'
-const rp = require('request-promise');
 var request = require('request');
-const fsp = require('fs-promise');
-const cheerio = require('cheerio');
 var iconv = require('iconv-lite');
 
-var firPage = 'http://online.ncu.edu.cn/eol/homepage/common/'
+var firstPage = 'http://online.ncu.edu.cn/eol/homepage/common/'
 var loginPage = 'http://online.ncu.edu.cn/eol/homepage/common/login.jsp'
 
 var request = request.defaults({ jar: true })
 var j = request.jar()
 
-request.get({ url: firPage, jar: j }, (err, res, body) => {
-  var cookies = j.getCookieString(firPage);
+request.get({ url: firstPage, jar: j }, (err, res, body) => {
+  var cookies = j.getCookieString(firstPage);
   if (res.statusCode === 200) {
     var Options = {
       method: 'POST',
