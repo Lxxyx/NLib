@@ -2,7 +2,7 @@
 var email = require("./node_modules/emailjs/email");
 var server = email.server.connect({
   user: "LxxyxNlib@aliyun.com",
-  password: "", // 你的邮件密码
+  password: "", // You Email Password
   host: "smtp.aliyun.com",
   ssl: true
 });
