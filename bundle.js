@@ -6,6 +6,8 @@ require('babel-polyfill');
 
 var _utils = require('./utils.js');
 
+var _mail = require('./mail.js');
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
 
 var chalk = require('chalk');
@@ -113,38 +115,60 @@ var getPage = function () {
 
 
                       if (canBorrowNum > 0) {
-                        // console.log(separte)
-                        // console.log(chalk.green(title));
-                        // console.log(chalk.white('=> '+canBorrowNum+'本可借   ' + '位置 '+location))
+                        console.log(separte);
+                        console.log(chalk.green(title));
+                        console.log(chalk.white('=> ' + canBorrowNum + '本可借   ' + '位置 ' + location));
                         bookState.canBorrow = canBorrowNum;
                         postQueue.push(bookState);
                       } else {
-                        // console.log(separte)
-                        // console.log(chalk.yellow(`${title}========> 暂无可借书籍`));
+                        console.log(separte);
+                        console.log(chalk.yellow(title + '========> 暂无可借书籍'));
                       }
 
                       queueLength -= 1;
 
                       if (queueLength === 0) {
-                        // console.log(chalk.white(separte))
-                        // wheel+=1;
-                        // console.log(chalk.white(`第 ${wheel} 轮结束`))
-                        // console.log(chalk.white(separte))
+                        console.log(chalk.white(separte));
+                        wheel += 1;
+                        console.log(chalk.white('第 ' + wheel + ' 轮结束'));
+                        console.log(chalk.white(separte));
+
                         fsp.writeFile('./push.json', JSON.stringify(postQueue)).then(_asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
-                          var data;
+                          var data, strVar, x;
                           return regeneratorRuntime.wrap(function _callee2$(_context2) {
                             while (1) {
                               switch (_context2.prev = _context2.next) {
                                 case 0:
-                                  _context2.next = 2;
+                                  _context2.t0 = JSON;
+                                  _context2.next = 3;
                                   return fsp.readFile('./push.json', 'utf-8');
 
-                                case 2:
-                                  data = _context2.sent;
+                                case 3:
+                                  _context2.t1 = _context2.sent;
+                                  data = _context2.t0.parse.call(_context2.t0, _context2.t1);
+                                  strVar = "";
 
-                                  console.log(data);
+                                  strVar += "<!DOCTYPE html>";
+                                  strVar += "<html lang=\"zh-cn\">";
+                                  strVar += "<head>";
+                                  strVar += "  <meta charset=\"UTF-8\">";
+                                  strVar += "  <title>Document<\/title>";
+                                  strVar += "  <style type=\"text\/css\">";
+                                  strVar += "    span {";
+                                  strVar += "      display:inline-block;";
+                                  strVar += "      padding: 10px;";
+                                  strVar += "    }";
+                                  strVar += "  <\/style>";
+                                  strVar += "<\/head>";
+                                  strVar += "<body>";
+                                  for (x in data) {
+                                    strVar += '<p>' + '<span>' + '书籍名称：' + data[x].title + '</span>' + '</br>' + '<span>' + '书籍位置：' + data[x].location + '</span>' + '<span>' + '可借阅数量：' + data[x].canBorrow + '</span>' + '</p>' + '</hr>';
+                                  }
+                                  strVar += "<\/body>";
+                                  strVar += "<\/html>";
+                                  (0, _mail.sendMail)(strVar);
 
-                                case 4:
+                                case 23:
                                 case 'end':
                                   return _context2.stop();
                               }
