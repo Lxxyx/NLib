@@ -12,7 +12,6 @@ const sendMail = function (data) {
     text: data,
     from: "LxxyxNlib@aliyun.com",
     to: "841380530@qq.com",
-    cc: "LxxyxNlib@aliyun.com",
     subject: "订阅书籍可借阅",
     attachment: [{
       data: data,
