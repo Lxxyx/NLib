@@ -15,7 +15,8 @@ var cheerio = require('cheerio');
 var separte = '-----------------------------------------';
 
 var queueLength,
-    wheel = 0;
+    wheel = 0,
+    postQueue = [];
 
 var readList = function () {
   var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(filePath) {
@@ -51,14 +52,14 @@ var readList = function () {
 }();
 
 var getPage = function () {
-  var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(uri) {
+  var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(uri) {
     var _this = this;
 
     var options, _ret;
 
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
             options = {
               uri: uri,
@@ -66,30 +67,30 @@ var getPage = function () {
                 return cheerio.load(body);
               }
             };
-            _context3.prev = 1;
-            return _context3.delegateYield(regeneratorRuntime.mark(function _callee2() {
-              var $, items, script, title, location, canBorrowNum;
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            _context4.prev = 1;
+            return _context4.delegateYield(regeneratorRuntime.mark(function _callee3() {
+              var $, items, script, title, location, canBorrowNum, bookState;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context2.prev = _context2.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
-                      _context2.next = 2;
+                      _context3.next = 2;
                       return rp(options);
 
                     case 2:
-                      $ = _context2.sent;
+                      $ = _context3.sent;
                       items = $('#tab_item tr td[title*="前湖-流通书库"]').toArray();
                       script = $('script');
                       title = (0, _utils.getTitle)(script['8'].children[0].data);
 
                       if (!(items.length === 0)) {
-                        _context2.next = 10;
+                        _context3.next = 10;
                         break;
                       }
 
                       console.log(separte);
                       console.log(chalk.red(title + '不在流通书库中'));
-                      return _context2.abrupt('return', {
+                      return _context3.abrupt('return', {
                         v: void 0
                       });
 
@@ -104,58 +105,90 @@ var getPage = function () {
                         canBorrowNum += (0, _utils.isBorrow)(title, state[0].children[0]);
                       });
 
+                      bookState = {
+                        title: title,
+                        location: location,
+                        canBorrow: 0
+                      };
+
+
                       if (canBorrowNum > 0) {
-                        console.log(separte);
-                        console.log(chalk.green(title));
-                        console.log(chalk.white('=> ' + canBorrowNum + '本可借   ' + '位置 ' + location));
+                        // console.log(separte)
+                        // console.log(chalk.green(title));
+                        // console.log(chalk.white('=> '+canBorrowNum+'本可借   ' + '位置 '+location))
+                        bookState.canBorrow = canBorrowNum;
+                        postQueue.push(bookState);
                       } else {
-                        console.log(separte);
-                        console.log(chalk.yellow(title + '========> 暂无可借书籍'));
+                        // console.log(separte)
+                        // console.log(chalk.yellow(`${title}========> 暂无可借书籍`));
                       }
 
                       queueLength -= 1;
 
                       if (queueLength === 0) {
-                        console.log(chalk.white(separte));
-                        wheel += 1;
-                        console.log(chalk.white('第 ' + wheel + ' 轮结束'));
-                        console.log(chalk.white(separte));
+                        // console.log(chalk.white(separte))
+                        // wheel+=1;
+                        // console.log(chalk.white(`第 ${wheel} 轮结束`))
+                        // console.log(chalk.white(separte))
+                        fsp.writeFile('./push.json', JSON.stringify(postQueue)).then(_asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
+                          var data;
+                          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                            while (1) {
+                              switch (_context2.prev = _context2.next) {
+                                case 0:
+                                  _context2.next = 2;
+                                  return fsp.readFile('./push.json', 'utf-8');
+
+                                case 2:
+                                  data = _context2.sent;
+
+                                  console.log(data);
+
+                                case 4:
+                                case 'end':
+                                  return _context2.stop();
+                              }
+                            }
+                          }, _callee2, _this);
+                        }))).catch(function (err) {
+                          console.log(err);
+                        });
                       }
 
-                    case 16:
+                    case 17:
                     case 'end':
-                      return _context2.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee2, _this);
+              }, _callee3, _this);
             })(), 't0', 3);
 
           case 3:
-            _ret = _context3.t0;
+            _ret = _context4.t0;
 
             if (!((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object")) {
-              _context3.next = 6;
+              _context4.next = 6;
               break;
             }
 
-            return _context3.abrupt('return', _ret.v);
+            return _context4.abrupt('return', _ret.v);
 
           case 6:
-            _context3.next = 11;
+            _context4.next = 11;
             break;
 
           case 8:
-            _context3.prev = 8;
-            _context3.t1 = _context3['catch'](1);
+            _context4.prev = 8;
+            _context4.t1 = _context4['catch'](1);
 
-            console.log(chalk.red(_context3.t1));
+            console.log(chalk.red(_context4.t1));
 
           case 11:
           case 'end':
-            return _context3.stop();
+            return _context4.stop();
         }
       }
-    }, _callee3, this, [[1, 8]]);
+    }, _callee4, this, [[1, 8]]);
   }));
 
   return function getPage(_x2) {
@@ -164,7 +197,7 @@ var getPage = function () {
 }();
 
 readList('./list.json');
-setInterval(function () {
-  if (queueLength > 0) return;
-  readList('./list.json');
-}, 1 * 60 * 1000);
+// setInterval(function() {
+//   if (queueLength > 0) return;
+//   readList('./list.json')
+// }, 1*60*1000)

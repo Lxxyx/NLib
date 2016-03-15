@@ -8,7 +8,8 @@ const cheerio = require('cheerio');
 const separte = '-----------------------------------------';
 
 var queueLength, 
-    wheel = 0;
+    wheel = 0,
+    postQueue = [];
 
 const readList = async function(filePath) {
   let booklist = JSON.parse(await fsp.readFile(filePath, 'utf-8'));
@@ -45,22 +46,38 @@ const getPage = async function(uri) {
       canBorrowNum += isBorrow(title, state[0].children[0])
     })
 
+    let bookState = {
+      title    :title,
+      location :location,
+      canBorrow:0
+    }
+
     if (canBorrowNum > 0) {
-      console.log(separte)
-      console.log(chalk.green(title));
-      console.log(chalk.white('=> '+canBorrowNum+'本可借   ' + '位置 '+location))
+      // console.log(separte)
+      // console.log(chalk.green(title));
+      // console.log(chalk.white('=> '+canBorrowNum+'本可借   ' + '位置 '+location))
+      bookState.canBorrow = canBorrowNum
+      postQueue.push(bookState);
     } else {
-      console.log(separte)
-      console.log(chalk.yellow(`${title}========> 暂无可借书籍`));
+      // console.log(separte)
+      // console.log(chalk.yellow(`${title}========> 暂无可借书籍`));
     }
 
     queueLength -= 1;
 
     if (queueLength === 0) {
-      console.log(chalk.white(separte))
-      wheel+=1;
-      console.log(chalk.white(`第 ${wheel} 轮结束`))
-      console.log(chalk.white(separte))
+      // console.log(chalk.white(separte))
+      // wheel+=1;
+      // console.log(chalk.white(`第 ${wheel} 轮结束`))
+      // console.log(chalk.white(separte))
+      fsp.writeFile('./push.json',JSON.stringify(postQueue))
+        .then(async () => {
+          var data = await fsp.readFile('./push.json','utf-8')
+          console.log(data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
   } catch (err) {
@@ -69,8 +86,8 @@ const getPage = async function(uri) {
 }
 
 readList('./list.json')
-setInterval(function() {
-  if (queueLength > 0) return;
-  readList('./list.json')
-}, 1*60*1000)
+// setInterval(function() {
+//   if (queueLength > 0) return;
+//   readList('./list.json')
+// }, 1*60*1000)
 
