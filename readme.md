@@ -26,5 +26,5 @@ babel online.js -o tonline.js -w
 node tonline.js
 ```
 ## TODO
-1. 加入邮件提醒功能
+1. 加入邮件提醒功能 // 已完成
 2. 放入微信公众号中
