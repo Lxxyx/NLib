@@ -1,8 +1,8 @@
 'use strict'
 const cheerio = require('cheerio');
 
-const isBorrow = function(title, state) {
-  if (!state.data) {
+const isBorrow = function(state) {
+  if (!state.data && state.children) {
     if (state.children[0].data === "可借") {
       return 1;
     }
