@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
-import { getTitle, isBorrow } from './utils'
+import { getTitle, isBorrow } from '../src/utils/utils'
+
 // 标题正则的测试
 describe('标题正则', function () {
   it('中文标题', function () {

@@ -1,7 +1,7 @@
 'use strict'
 import 'babel-polyfill'
-import { getTitle, isBorrow, getLocation } from './utils.js'
-import {sendMail} from './mail.js'
+import { getTitle, isBorrow, getLocation } from '../utils/utils'
+import { sendMail } from '../utils/mail'
 const chalk = require('chalk');
 const rp = require('request-promise');
 const fsp = require('fs-promise');
