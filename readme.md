@@ -16,7 +16,7 @@ node bundle.js
 ```
 npm i babel-cli -g
 // 安装完成后
-babel lib.js -o bundle.js -w
+babel NLib.js -o bundle.js
 node bundle.js
 ```
 另外一个online.js为网络教学平台登录。

@@ -44,7 +44,7 @@ const getPage = async function(uri) {
     items.forEach(item => {
       let findState = cheerio.load(item.parent)
       let state = findState('td[width="20%"]').toArray()
-      canBorrowNum += isBorrow(title, state[0].children[0])
+      canBorrowNum += isBorrow(state[0].children[0])
     })
 
     let bookState = {
