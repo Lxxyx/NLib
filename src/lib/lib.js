@@ -110,9 +110,4 @@ const getPage = async function(uri) {
   }
 }
 
-readList('./list.json')
-// setInterval(function() {
-//   if (queueLength > 0) return;
-//   readList('./list.json')
-// }, 1*60*1000)
-
+export default readList

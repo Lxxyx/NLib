@@ -35,6 +35,8 @@ const getLocation = function(item) {
   return;
 }
 
-exports.getTitle = getTitle;
-exports.isBorrow = isBorrow;
-exports.getLocation = getLocation;
+export default {
+  isBorrow,
+  getTitle,
+  getLocation
+}
