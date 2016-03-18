@@ -1,86 +1,64 @@
 'use strict'
 import 'babel-polyfill'
-import { getTitle, isBorrow, getLocation,getMailContent } from '../utils/utils'
-import { sendMail } from '../utils/mail'
-const chalk = require('chalk');
-const rp = require('request-promise');
-const fsp = require('fs-promise');
-const cheerio = require('cheerio');
-const separte = '-----------------------------------------';
+import { getTitle , getLocation , isBorrow} from '../utils/utils'
+import chalk from 'chalk'
+import rp from 'request-promise'
+import fsp from 'fs-promise'
+import cheerio from 'cheerio'
+import asy from 'async'
 
-var queueLength, 
-    wheel = 0,
-    postQueue = [];
-
-const readList = async function(filePath) {
-  let booklist = JSON.parse(await fsp.readFile(filePath, 'utf-8'));
-  queueLength = booklist.length;
-  booklist.forEach(val => {
-    getPage(val)
+var booksInfo = function (file) {
+  return new Promise(async function (reslove, reject) {
+    let lists = JSON.parse(await fsp.readFile(file, 'utf-8'))
+    asy.mapLimit(lists, 5, (href, cb) => {
+      getPage(href, cb)
+    }, (err, result) => {
+      err ? reject(err) : reslove(result)
+    })
   })
-}
+};
 
-const getPage = async function(uri) {
+var getPage = async function (href, cb) {
   let options = {
-    uri: uri,
-    transform: function(body) {
+    uri: href,
+    transform: function (body) {
       return cheerio.load(body);
     }
   };
-  
   try {
+    // 载入页面主体
     let $ = await rp(options);
+    // 获取标题
+    let title = getTitle($('script')['8'].children[0].data)
+    // 获取前湖-流通书库的标题
     let items = $('#tab_item tr td[title*="前湖-流通书库"]').toArray();
-    let script = $('script');
-    let title = getTitle(script['8'].children[0].data)
-
+    // 如果没有这本书，则输出不可借阅，并且直接返回。
     if (items.length === 0) {
       console.log(separte)
       console.log(chalk.red(`${title}不在流通书库中`))
       return;
     }
+    // 获取书的位置
     let location = getLocation(items[0]);
+    // 获取可借阅数量
     let canBorrowNum = 0;
-
     items.forEach(item => {
       let findState = cheerio.load(item.parent)
       let state = findState('td[width="20%"]').toArray()
       canBorrowNum += isBorrow(state[0].children[0])
     })
-
-    let bookState = {
-      title    :title,
-      location :location,
-      canBorrow:0
-    }
-
-    if (canBorrowNum > 0) {
-      console.log(separte)
-      console.log(chalk.green(title));
-      console.log(chalk.white('=> '+canBorrowNum+'本可借   ' + '位置 '+location))
-      bookState.canBorrow = canBorrowNum
-      postQueue.push(bookState);
-    } else {
-      console.log(separte)
-      console.log(chalk.yellow(`${title}========> 暂无可借书籍`));
-    }
-
-    queueLength -= 1;
-
-    if (queueLength === 0) {
-      console.log(chalk.white(separte))
-      wheel+=1;
-      console.log(chalk.white(`第 ${wheel} 轮结束`))
-      console.log(chalk.white(separte))
-
-      return postQueue;
-    }
-
+    // 加入结果
+    cb(null, {
+      title,
+      location,
+      canBorrowNum
+    })
   } catch (err) {
-    console.log(chalk.red(err))
+    // 处理错误
+    cb(err, null)
   }
 }
 
 export {
-  readList
+  booksInfo
 }

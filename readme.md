@@ -1,6 +1,6 @@
 ## 介绍
 用于查询图书是否能借阅。一次性查询多本图书，省时省力。
-## 运行方式
+## 运行方式（已过时）
 ```
 git clone git@github.com:Lxxyx/NLib.git
 cd NLib

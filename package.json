@@ -4,8 +4,6 @@
   "description": "NCU School Helper",
   "main": "index.js",
   "scripts": {
-    "lib": "babel ./src/lib/lib.js -o ./dist/lib.js -w",
-    "online": "babel ./src/online/online.js -o ./dist/online.js -w",
     "test": "mocha --compilers js:babel-core/register ./test/utils.test.js"
   },
   "author": "Lxxyx",
