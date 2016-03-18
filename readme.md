@@ -15,15 +15,17 @@ npm install ncu-libary --save
 ]
 ```
 使用：
-```
+```javascript
 var nlib = require('ncu-libary')
-nlib.booksInfo(JSON文件地址)
+// 函数内填JSON文件地址
+nlib.booksInfo(filepath)
   .then(data => {
     // 对获取到的图书数据进行操作
   })
   .catch(err => {
     // 错误处理
   })
+```
 ## 开发
 ```
 git clone https://github.com/Lxxyx/NLib
