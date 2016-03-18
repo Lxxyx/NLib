@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.readList = undefined;
 
 require('babel-polyfill');
 
@@ -194,4 +195,4 @@ var getPage = function () {
   };
 }();
 
-exports.default = readList;
+exports.readList = readList;

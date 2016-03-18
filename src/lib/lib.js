@@ -110,4 +110,6 @@ const getPage = async function(uri) {
   }
 }
 
-export default readList
+export {
+  readList
+}

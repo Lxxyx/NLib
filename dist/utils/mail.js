@@ -1,4 +1,8 @@
-'use strict'
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 var email = require("emailjs");
 var server = email.server.connect({
   user: "LxxyxNlib@aliyun.com",
@@ -7,8 +11,8 @@ var server = email.server.connect({
   ssl: true
 });
 
-const sendMail = function (data) {
-  let message = {
+var sendMail = function sendMail(data) {
+  var message = {
     text: data,
     from: "LxxyxNlib@aliyun.com",
     to: "841380530@qq.com",
@@ -21,8 +25,6 @@ const sendMail = function (data) {
   server.send(message, function (err, message) {
     console.log(err || message);
   });
-}
+};
 
-export {
-  sendMail
-}
+exports.sendMail = sendMail;

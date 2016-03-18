@@ -7,22 +7,23 @@ cd NLib
 npm install
 ```
 
-将要查找的图书，放入`list.json`中即可。
+将要查找的图书，放入`data/list.json`中即可。
 然后
 ```
 cd dist
-node Nlib.js
+npm install
+gulp
 ```
 ## 开发
 ```
-npm i babel-cli -g
+
 // 安装完成后
-npm run lib
+在index.js中调用
 ```
 另外一个online.js为网络教学平台登录。
 开发方式相同。
 ```
-npm run online
+gulp
 ```
 ## TODO
 1. 加入邮件提醒功能 // 已完成
