@@ -1,6 +1,6 @@
 'use strict'
 import 'babel-polyfill'
-import { getTitle, isBorrow, getLocation } from '../utils/utils'
+import { getTitle, isBorrow, getLocation,getMailContent } from '../utils/utils'
 import { sendMail } from '../utils/mail'
 const chalk = require('chalk');
 const rp = require('request-promise');
@@ -27,6 +27,7 @@ const getPage = async function(uri) {
       return cheerio.load(body);
     }
   };
+  
   try {
     let $ = await rp(options);
     let items = $('#tab_item tr td[title*="前湖-流通书库"]').toArray();
@@ -72,37 +73,7 @@ const getPage = async function(uri) {
       console.log(chalk.white(`第 ${wheel} 轮结束`))
       console.log(chalk.white(separte))
 
-      fsp.writeFile('./push.json',JSON.stringify(postQueue))
-        .then(async () => {
-          let data = JSON.parse(await fsp.readFile('./push.json','utf-8'));
-          var strVar="";
-          strVar += "<!DOCTYPE html>";
-          strVar += "<html lang=\"zh-cn\">";
-          strVar += "<head>";
-          strVar += "  <meta charset=\"UTF-8\">";
-          strVar += "  <title>Document<\/title>";
-          strVar += "  <style type=\"text\/css\">";
-          strVar += "    span {";
-          strVar += "      display:inline-block;";
-          strVar += "      padding: 10px;";
-          strVar += "    }";
-          strVar += "  <\/style>";
-          strVar += "<\/head>";
-          strVar += "<body>";
-          for(let x in data) {
-              strVar +='<p>'+
-              '<span>'+'书籍名称：'+data[x].title+'</span>'+'</br>'+
-              '<span>'+'书籍位置：'+data[x].location+'</span>'+
-              '<span>'+'可借阅数量：'+data[x].canBorrow+'</span>'+
-              '</p>'+'</hr>'
-          }
-          strVar += "<\/body>";
-          strVar += "<\/html>";
-          sendMail(strVar)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      return postQueue;
     }
 
   } catch (err) {

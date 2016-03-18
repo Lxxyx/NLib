@@ -1,3 +1,4 @@
 var lib = require('./dist/lib/lib.js');
 
-lib.readList('./data/lib.json')
+var canBorrow = lib.readList('./data/lib.json');
+console.log(canBorrow)

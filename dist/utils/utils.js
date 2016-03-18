@@ -36,6 +36,30 @@ var getLocation = function getLocation(item) {
   return;
 };
 
+var getMailContent = function getMailContent(data) {
+  var content = "";
+  content += "<!DOCTYPE html>";
+  content += "<html lang=\"zh-cn\">";
+  content += "<head>";
+  content += "  <meta charset=\"UTF-8\">";
+  content += "  <title>Document<\/title>";
+  content += "  <style type=\"text\/css\">";
+  content += "    span {";
+  content += "      display:inline-block;";
+  content += "      padding: 10px;";
+  content += "    }";
+  content += "  <\/style>";
+  content += "<\/head>";
+  content += "<body>";
+  for (var x in data) {
+    content += '<p>' + '<span>' + '书籍名称：' + data[x].title + '</span>' + '</br>' + '<span>' + '书籍位置：' + data[x].location + '</span>' + '<span>' + '可借阅数量：' + data[x].canBorrow + '</span>' + '</p>' + '</hr>';
+  }
+  content += "<\/body>";
+  content += "<\/html>";
+  return content;
+};
+
 exports.isBorrow = isBorrow;
 exports.getTitle = getTitle;
 exports.getLocation = getLocation;
+exports.getMailContent = getMailContent;
