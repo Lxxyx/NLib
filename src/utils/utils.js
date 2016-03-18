@@ -35,7 +35,7 @@ const getLocation = function(item) {
   return;
 }
 
-export default {
+export {
   isBorrow,
   getTitle,
   getLocation
