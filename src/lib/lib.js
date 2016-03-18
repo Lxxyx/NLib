@@ -34,7 +34,6 @@ var getPage = async function (href, cb) {
     let items = $('#tab_item tr td[title*="前湖-流通书库"]').toArray();
     // 如果没有这本书，则输出不可借阅，并且直接返回。
     if (items.length === 0) {
-      console.log(separte)
       console.log(chalk.red(`${title}不在流通书库中`))
       return;
     }

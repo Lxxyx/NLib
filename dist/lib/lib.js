@@ -97,15 +97,14 @@ var getPage = function () {
             // 如果没有这本书，则输出不可借阅，并且直接返回。
 
             if (!(items.length === 0)) {
-              _context2.next = 11;
+              _context2.next = 10;
               break;
             }
 
-            console.log(separte);
             console.log(_chalk2.default.red(title + '不在流通书库中'));
             return _context2.abrupt('return');
 
-          case 11:
+          case 10:
             // 获取书的位置
             location = (0, _utils.getLocation)(items[0]);
             // 获取可借阅数量
@@ -123,22 +122,22 @@ var getPage = function () {
               location: location,
               canBorrowNum: canBorrowNum
             });
-            _context2.next = 20;
+            _context2.next = 19;
             break;
 
-          case 17:
-            _context2.prev = 17;
+          case 16:
+            _context2.prev = 16;
             _context2.t0 = _context2['catch'](1);
 
             // 处理错误
             cb(_context2.t0, null);
 
-          case 20:
+          case 19:
           case 'end':
             return _context2.stop();
         }
       }
-    }, _callee2, this, [[1, 17]]);
+    }, _callee2, this, [[1, 16]]);
   }));
 
   return function getPage(_x3, _x4) {
