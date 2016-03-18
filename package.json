@@ -1,6 +1,6 @@
 {
   "name": "ncu-libary",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "NCU School Helper",
   "main": "index.js",
   "scripts": {
