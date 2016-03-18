@@ -8,6 +8,7 @@ npm install ncu-libary --save
 
 将要查找的图书地址，放入一个json文件中即可。
 ### 格式如下：
+用数组方式，放置网址。
 ```javascript
 [
   "http://210.35.251.243/opac/item.php?marc_no=0000833661",
@@ -33,7 +34,7 @@ nlib.booksInfo(filepath)
   title: '《图解CSS3核心技术与案例实战》',
   // 图书在流通书库的位置
   location: 'TP393.092.2/143 ',
-  // 图书的可借阅熟练
+  // 图书的可借阅数量
   canBorrowNum: 0 
 }]
 ```
