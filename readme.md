@@ -45,6 +45,15 @@ cd Nlib
 npm install
 gulp
 ```
+### 测试
+全局安装mocha
+```
+npm i mocha -g
+```
+然后:
+```
+npm test
+```
 ## TODO
 1. 加入邮件提醒功能 // 已完成
 2. 放入微信公众号中
