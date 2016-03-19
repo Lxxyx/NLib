@@ -10,10 +10,15 @@ import asy from 'async'
 var booksInfo = function (file) {
   return new Promise(async function (reslove, reject) {
     let lists = JSON.parse(await fsp.readFile(file, 'utf-8'))
-    asy.mapLimit(lists, 5, (href, cb) => {
+    // 通过Async控制并发，并把结果汇总
+    // 使用Promise保证返回正确结果
+    asy.mapLimit(lists, 10,(href, cb) => {
       getPage(href, cb)
     }, (err, result) => {
-      err ? reject(err) : reslove(result)
+      if (err) {
+        reject(err)
+      }
+      reslove(result)
     })
   })
 };
@@ -35,7 +40,8 @@ var getPage = async function (href, cb) {
     // 如果没有这本书，则输出不可借阅，并且直接返回。
     if (items.length === 0) {
       console.log(chalk.red(`${title}不在流通书库中`))
-      return;
+      console.log(chalk.red(`地址是${href}，请删除该地址后再操作`))
+      cb(`Error,${title}不在流通书库`)
     }
     // 获取书的位置
     let location = getLocation(items[0]);

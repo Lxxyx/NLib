@@ -49,10 +49,15 @@ var booksInfo = function booksInfo(file) {
               _context.t1 = _context.sent;
               lists = _context.t0.parse.call(_context.t0, _context.t1);
 
-              _async2.default.mapLimit(lists, 5, function (href, cb) {
+              // 通过Async控制并发，并把结果汇总
+              // 使用Promise保证返回正确结果
+              _async2.default.mapLimit(lists, 10, function (href, cb) {
                 getPage(href, cb);
               }, function (err, result) {
-                err ? reject(err) : reslove(result);
+                if (err) {
+                  reject(err);
+                }
+                reslove(result);
               });
 
             case 6:
@@ -96,15 +101,11 @@ var getPage = function () {
             items = $('#tab_item tr td[title*="前湖-流通书库"]').toArray();
             // 如果没有这本书，则输出不可借阅，并且直接返回。
 
-            if (!(items.length === 0)) {
-              _context2.next = 10;
-              break;
+            if (items.length === 0) {
+              console.log(_chalk2.default.red(title + '不在流通书库中'));
+              console.log(_chalk2.default.red('地址是' + href + '，请删除该地址后再操作'));
+              cb('Error,' + title + '不在流通书库');
             }
-
-            console.log(_chalk2.default.red(title + '不在流通书库中'));
-            return _context2.abrupt('return');
-
-          case 10:
             // 获取书的位置
             location = (0, _utils.getLocation)(items[0]);
             // 获取可借阅数量
@@ -122,22 +123,22 @@ var getPage = function () {
               location: location,
               canBorrowNum: canBorrowNum
             });
-            _context2.next = 19;
+            _context2.next = 17;
             break;
 
-          case 16:
-            _context2.prev = 16;
+          case 14:
+            _context2.prev = 14;
             _context2.t0 = _context2['catch'](1);
 
             // 处理错误
             cb(_context2.t0, null);
 
-          case 19:
+          case 17:
           case 'end':
             return _context2.stop();
         }
       }
-    }, _callee2, this, [[1, 16]]);
+    }, _callee2, this, [[1, 14]]);
   }));
 
   return function getPage(_x3, _x4) {
