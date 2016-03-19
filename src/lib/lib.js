@@ -1,6 +1,6 @@
 'use strict'
 import 'babel-polyfill'
-import { getTitle , getLocation , isBorrow} from '../utils/utils'
+import { getTitle, getLocation, isBorrow } from '../utils/utils'
 import chalk from 'chalk'
 import rp from 'request-promise'
 import fsp from 'fs-promise'
@@ -10,9 +10,9 @@ import asy from 'async'
 var booksInfo = function (file) {
   return new Promise(async function (reslove, reject) {
     let lists = JSON.parse(await fsp.readFile(file, 'utf-8'))
-    // 通过Async控制并发，并把结果汇总
-    // 使用Promise保证返回正确结果
-    asy.mapLimit(lists, 10,(href, cb) => {
+      // 通过Async控制并发，并把结果汇总
+      // 使用Promise保证返回正确结果
+    asy.mapLimit(lists, 10, (href, cb) => {
       getPage(href, cb)
     }, (err, result) => {
       if (err) {
@@ -35,7 +35,7 @@ var getPage = async function (href, cb) {
     let $ = await rp(options);
     // 获取标题
     let title = getTitle($('script')['8'].children[0].data)
-    // 获取前湖-流通书库的标题
+      // 获取前湖-流通书库的标题
     let items = $('#tab_item tr td[title*="前湖-流通书库"]').toArray();
     // 如果没有这本书，则输出不可借阅，并且直接返回。
     if (items.length === 0) {
@@ -48,11 +48,11 @@ var getPage = async function (href, cb) {
     // 获取可借阅数量
     let canBorrowNum = 0;
     items.forEach(item => {
-      let findState = cheerio.load(item.parent)
-      let state = findState('td[width="20%"]').toArray()
-      canBorrowNum += isBorrow(state[0].children[0])
-    })
-    // 加入结果
+        let findState = cheerio.load(item.parent)
+        let state = findState('td[width="20%"]').toArray()
+        canBorrowNum += isBorrow(state[0].children[0])
+      })
+      // 加入结果
     cb(null, {
       title,
       location,

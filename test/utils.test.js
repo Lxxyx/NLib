@@ -22,7 +22,7 @@ var canBorrow = {
 };
 
 var newBook = {
-  data:'新书：正在上架'
+  data: '新书：正在上架'
 };
 
 describe('书籍借阅状态', function () {
