@@ -40,8 +40,8 @@ nlib.booksInfo(filepath)
 ```
 ## 开发
 ```
-git clone https://github.com/Lxxyx/NLib
-cd Nlib
+git clone https://github.com/Lxxyx/ncu-libary
+cd ncu-libary
 npm install
 gulp
 ```

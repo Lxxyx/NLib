@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 var request = require('request');
 var iconv = require('iconv-lite');
 
@@ -23,10 +22,10 @@ request.get({ url: firstPage, jar: j }, (err, res, body) => {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Origin': 'http://online.ncu.edu.cn',
         'Content-Length': 56,
-        Connection: 'keep-alive',
+        'Connection': 'keep-alive',
         'User-Agent': 'Mozilla/5.0(Macintosh;IntelMacOSX10_10_5)AppleWebKit/601.4.4(KHTML,likeGecko)Version/9.0.3Safari/601.4.4',
-        Referer: 'http://online.ncu.edu.cn/eol/homepage/common/',
-        Cookie: cookies
+        'Referer': 'http://online.ncu.edu.cn/eol/homepage/common/',
+        'Cookie': cookies
       },
       form: {
         // 填你的账号
