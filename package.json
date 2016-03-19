@@ -4,7 +4,7 @@
   "description": "NCU School Helper",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register ./test/utils.test.js"
+    "test": "mocha test"
   },
   "author": "Lxxyx",
   "license": "MIT",
