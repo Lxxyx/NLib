@@ -1,7 +1,7 @@
 {
   "name": "ncu-libary",
   "version": "1.0.0",
-  "description": "NCU School Helper",
+  "description": "NCU libary Helper",
   "main": "index.js",
   "scripts": {
     "test": "mocha test"
