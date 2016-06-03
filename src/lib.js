@@ -12,7 +12,11 @@ const booksInfo = function (file) {
   return new Promise(async(function (reslove, reject) {
     let lists
     try {
-      lists = JSON.parse(await (fsp.readFile(file, 'utf-8')))
+      if (Array.isArray(file)) {
+        lists = file
+      } else {
+        lists = JSON.parse(await (fsp.readFile(file, 'utf-8')))
+      }
     } catch (err) {
       throw err
     }
