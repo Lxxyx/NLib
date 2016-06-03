@@ -4,7 +4,8 @@
   "description": "NCU libary Helper",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "pub": "npm version patch && npm publish && cnpm sync"
   },
   "author": "Lxxyx",
   "license": "MIT",
