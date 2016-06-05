@@ -23,6 +23,6 @@ const sendMail = function (data) {
   });
 }
 
-export {
+module.exports = {
   sendMail
 }
