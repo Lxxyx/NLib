@@ -74,4 +74,4 @@ const getPage = async(function (href, cb) {
   }
 })
 
-exports.booksInfo = booksInfo
+module.exports = booksInfo

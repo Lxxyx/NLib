@@ -1,4 +1,4 @@
-const { booksInfo } = require('./../src/lib.js')
+const booksInfo = require('./../src/lib.js')
 const { expect } = require('chai')
 
 const list = [

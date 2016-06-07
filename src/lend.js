@@ -65,33 +65,23 @@ const lendInfo = array => {
   return infos
 }
 
-const login = async((username, password = '123456') => {
-  let indexCookie = await(rp(options.index)).headers['set-cookie']
-  options.login.headers.Cookie = getCookie(indexCookie)
-  options.login.form.username = username
-  options.login.form.password = password
-  let loginCookie = await(rp(options.login).catch(e => e.response.headers['set-cookie']))
-  options.lend.headers.Cookie = getCookie(loginCookie)
-  let $ = await(rp(options.lend))
-  let lendArr = $('body > div.box.gcDetail > div > div > div > table').toArray()
-  let infos = lendInfo(lendArr)
-  console.log(infos)
-})
+const lend = (username, password = '123456') => {
+  return new Promise(async((resolve, reject) => {
+    try {
+      let indexCookie = await (rp(options.index)).headers['set-cookie']
+      options.login.headers.Cookie = getCookie(indexCookie)
+      options.login.form.username = username
+      options.login.form.password = password
+      let loginCookie = await (rp(options.login).catch(e => e.response.headers['set-cookie']))
+      options.lend.headers.Cookie = getCookie(loginCookie)
+      let $ = await (rp(options.lend))
+      let lendArr = $('body > div.box.gcDetail > div > div > div > table').toArray()
+      let infos = lendInfo(lendArr)
+      resolve(infos)
+    } catch (err) {
+      reject(err)
+    }
+  }))
+}
 
-login('7102314023')
-
-// rp(options.login)
-// .then(res => {
-//   console.log(res)
-// })
-// .catch(err => {
-//   console.log(err.response.headers)
-// })
-
-// rp(options.index)
-//   .then(res => {
-//     console.log(res.headers['set-cookie'])
-//   })
-//   .catch(err => {
-//     console.log(err)
-//   })
+module.exports = lend
