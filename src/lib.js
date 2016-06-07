@@ -49,8 +49,8 @@ const getPage = async(function (href, cb) {
     let items = $('#tab_item tr td[title*="前湖-流通书库"]').toArray()
       // 如果没有这本书，则输出不可借阅，并且直接返回。
     if (items.length === 0) {
-      console.log(chalk.red(`${title}不在流通书库中`))
-      console.log(chalk.red(`地址是${href}，请删除该地址后再操作`))
+      // console.log(chalk.red(`${title}不在流通书库中`))
+      // console.log(chalk.red(`地址是${href}，请删除该地址后再操作`))
       cb(`Error,${title}不在流通书库`)
     }
     // 获取书的位置

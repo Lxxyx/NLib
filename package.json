@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test",
-    "pub": "npm version patch && npm publish && cnpm sync"
+    "patch": "npm version patch && npm publish && cnpm sync",
+    "minor": "npm version minor && npm publish && cnpm sync"
   },
   "author": "Lxxyx",
   "license": "MIT",
