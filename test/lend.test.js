@@ -15,3 +15,12 @@ describe('借阅模块测试', () => {
     })
   })
 })
+
+
+// lend('7102314023')
+// .then(data => {
+//   console.log(data)
+// })
+// .catch(err => {
+//   console.log(err)
+// })

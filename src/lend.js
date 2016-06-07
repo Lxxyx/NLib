@@ -40,6 +40,11 @@ const options = {
 
 const re = /.*?;/i
 
+const getRemain = back => {
+  let milli = back.getTime() - new Date().getTime()
+  return Math.trunc(milli / (1000*3600*24))
+}
+
 const getCookie = (array) => {
   array = array.map(val => re.exec(val)[0])
   return array.join('')
@@ -56,6 +61,7 @@ const info = html => {
     attach: $('tr:nth-child(6) > td').text(),
     reLend: `http://ms.waplib.ncu.edu.cn/${$('tr:nth-child(7) > td > form').attr('action')}`
   }
+  info.remain = getRemain(new Date(info.back))
   return info
 }
 
