@@ -12,8 +12,8 @@ const options = {
       'backurl': '/user/uc/showUserCenter.jspx',
       'schoolid': '1233',
       'userType:': '0',
-      'username': '7102314023',
-      'password': '123456'
+      'username': '',
+      'password': ''
     },
     headers: {
       'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/50.0.2661.102 Chrome/50.0.2661.102 Safari/537.36',
@@ -65,9 +65,11 @@ const lendInfo = array => {
   return infos
 }
 
-const login = async(() => {
+const login = async((username, password = '123456') => {
   let indexCookie = await(rp(options.index)).headers['set-cookie']
   options.login.headers.Cookie = getCookie(indexCookie)
+  options.login.form.username = username
+  options.login.form.password = password
   let loginCookie = await(rp(options.login).catch(e => e.response.headers['set-cookie']))
   options.lend.headers.Cookie = getCookie(loginCookie)
   let $ = await(rp(options.lend))
@@ -76,7 +78,7 @@ const login = async(() => {
   console.log(infos)
 })
 
-login()
+login('7102314023')
 
 // rp(options.login)
 // .then(res => {
