@@ -12,7 +12,7 @@ const options = {
 }
 
 const re = {
-  title: /\d.+\./i,
+  title: /\d+\./i,
   location: /\w{1,2}\d{1,3}.+\/\d+/i,
   bookNum: /\d+/i,
   marc_no: /\d+/i
@@ -25,7 +25,7 @@ const getInfo = html => {
   let [totalBook, canBorrowNum] = $('p span').text().split('\r\n\t')
 
   let info = {
-    title: $('a').text().replace(re.title, '').replace('馆藏', ''),
+    title: $('h3 a').text().replace(re.title, ''),
     location: location.trim(),
     author: author.trim(),
     marc_no: re.marc_no.exec($('a').attr('href'))[0],
