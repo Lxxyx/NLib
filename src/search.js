@@ -40,7 +40,7 @@ const getInfo = html => {
 
 const search = (title, page = 1) => new Promise(async((reslove, reject) => {
   try {
-    options.uri = `http://210.35.251.243/opac/openlink.php?location=03000&page=${page}&title=${title}&doctype=ALL&lang_code=ALL&match_flag=forward&displaypg=20&showmode=list&orderby=DESC&sort=CATA_DATE&onlylendable=no&count=179&with_ebook=on`
+    options.uri = `http://210.35.251.243/opac/openlink.php?title=${encodeURI(title)}&page=${page}&doctype=ALL&lang_code=ALL&match_flag=forward&displaypg=20&showmode=list&orderby=DESC&sort=CATA_DATE&onlylendable=no&with_ebook=on&location=&location=&location=&location=03000`
     let $ = await (rp(options))
     let bookArr = $('.book_list_info').toArray()
     let total = $('.search_form strong').text()
