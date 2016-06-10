@@ -43,9 +43,11 @@ const search = (title, page = 1) => new Promise(async((reslove, reject) => {
     options.uri = `http://210.35.251.243/opac/openlink.php?location=03000&page=${page}&title=${title}&doctype=ALL&lang_code=ALL&match_flag=forward&displaypg=20&showmode=list&orderby=DESC&sort=CATA_DATE&onlylendable=no&count=179&with_ebook=on`
     let $ = await (rp(options))
     let bookArr = $('.book_list_info').toArray()
+    let total = $('.search_form strong').text()
     let infos = []
     bookArr.forEach(val => {
       let info = getInfo(val)
+      info.totalNum = total
       infos.push(info)
     })
     reslove(infos)
