@@ -77,8 +77,14 @@ const lend = (username, password = '123456') => new Promise(async((resolve, reje
     options.login.headers.Cookie = getCookie(indexCookie)
     options.login.form.username = username
     options.login.form.password = password
-    let loginCookie = await (rp(options.login).catch(e => e.response.headers['set-cookie']))
-    options.lend.headers.Cookie = getCookie(loginCookie)
+    let loginRes = await (rp(options.login).catch(e => e))
+    // 登陆成功返回302，页面主体为空
+    // 登陆失败，返回的响应主体为404，不为空。
+    if (loginRes.body) {
+      reject({message: '用户名或密码错误', code: 400})
+      return false
+    }
+    options.lend.headers.Cookie = getCookie(loginRes.response.headers['set-cookie'])
     let $ = await (rp(options.lend))
     let lendArr = $('body > div.box.gcDetail > div > div > div > table').toArray()
     let infos = lendInfo(lendArr)
