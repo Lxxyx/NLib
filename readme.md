@@ -15,11 +15,15 @@ npm install ncu-libary --save
   "http://210.35.251.243/opac/item.php?marc_no=0000840261"
 ]
 ```
-### 使用：
+## 使用：
 ```javascript
 var lib = require('ncu-libary')
-// 函数内填JSON文件地址
-lib.booksInfo(filepath)
+// 函数内填数组，如:
+var list = [
+  "http://210.35.251.243/opac/item.php?marc_no=0000833661",
+  "http://210.35.251.243/opac/item.php?marc_no=0000840261"
+]
+lib.booksInfo(list)
   .then(data => {
     // 对获取到的图书数据进行操作
   })
@@ -31,7 +35,7 @@ lib.booksInfo(filepath)
 lib.lend(username, password = '123456')
 .then(data => console.log(data))
 
-// 查询书籍
+// 查询书籍,默认只能查询前湖校区的图书
 lib.search(bookname, page = 1)
 .then(data => {
   console.log(data)
