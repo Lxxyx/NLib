@@ -13,19 +13,20 @@ const options = {
 
 const re = {
   title: /\d.+\./i,
-  location: /\w{1,2}\d{3}.+\/\d+/i,
+  location: /\w{1,2}\d{1,3}.+\/\d+/i,
   bookNum: /\d+/i,
   marc_no: /\d+/i
 }
 
 const getInfo = html => {
   let $ = cheerio.load(html)
+  let location = $('h3').clone().children().empty().parent().text()
   let [author, publishing] = $('p').clone().children().empty().parent().text().split('\r\n\t')
   let [totalBook, canBorrowNum] = $('p span').text().split('\r\n\t')
 
   let info = {
     title: $('a').text().replace(re.title, '').replace('馆藏', ''),
-    location: re.location.exec($('.book_list_info').text())[0].trimRight(),
+    location: location.trim(),
     author: author.trim(),
     marc_no: re.marc_no.exec($('a').attr('href'))[0],
     publishing: publishing.trim(),
@@ -54,4 +55,3 @@ const search = (title, page = 1) => new Promise(async((reslove, reject) => {
 }))
 
 module.exports = search
-

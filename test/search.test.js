@@ -13,6 +13,14 @@ describe('搜索模块测试', () => {
       })
       .catch(e => done(e))
   })
+  it('搜索第二页的结果应该返回数组', done => {
+    search('web', 2)
+      .then(data => {
+        expect(data).to.be.instanceOf(Array)
+        done()
+      })
+      .catch(e => done(e))
+  })
   it('搜索结果的数组，应该包含标题等信息', done => {
     search('web')
       .then(data => {

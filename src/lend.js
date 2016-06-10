@@ -88,5 +88,4 @@ const lend = (username, password = '123456') => new Promise(async((resolve, reje
   }
 }))
 
-
 module.exports = lend

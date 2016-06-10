@@ -8,7 +8,7 @@ npm install ncu-libary --save
 
 将要查找的图书地址，放入一个json文件中即可。
 ### 格式如下：
-用数组方式，放置网址。
+用数组方式，放置网址。或者传入数组
 ```javascript
 [
   "http://210.35.251.243/opac/item.php?marc_no=0000833661",
@@ -17,15 +17,25 @@ npm install ncu-libary --save
 ```
 ### 使用：
 ```javascript
-var nlib = require('ncu-libary')
+var lib = require('ncu-libary')
 // 函数内填JSON文件地址
-nlib.booksInfo(filepath)
+lib.booksInfo(filepath)
   .then(data => {
     // 对获取到的图书数据进行操作
   })
   .catch(err => {
     // 错误处理
   })
+
+// 查询用户借阅书籍
+lib.lend(username, password = '123456')
+.then(data => console.log(data))
+
+// 查询书籍
+lib.search(bookname, page = 1)
+.then(data => {
+  console.log(data)
+})
 ```
 ### 返回的格式：
 ```javascript
@@ -54,8 +64,3 @@ npm i mocha -g
 ```
 npm test
 ```
-## TODO
-1. 加入邮件提醒功能 // 已完成
-2. 放入微信公众号中
-3. 加入网络教学平台登录功能
-4. 发布至NPM社区 // 已完成
