@@ -32,4 +32,13 @@ describe('搜索模块测试', () => {
       })
       .catch(e => done(e))
   })
+  it('搜索中文，应该返回正确的数组', done => {
+    search('深入理解')
+      .then(data => {
+        expect(data).to.be.instanceOf(Array)
+        expect(data.length).equal(20)
+        done()
+      })
+      .catch(e => done(e))
+  })
 })
