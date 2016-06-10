@@ -13,15 +13,14 @@
   "dependencies": {
     "async": "*",
     "asyncawait": "^1.0.3",
-    "chalk": "^1.1.1",
     "cheerio": "^0.20.0",
     "fs-promise": "^0.5.0",
     "iconv-lite": "^0.4.13",
-    "mocha": "^2.5.3",
     "request-promise": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "mocha": "^2.5.3",
     "emailjs": "^1.0.4",
     "iconv-lite": "^0.4.13"
   }
