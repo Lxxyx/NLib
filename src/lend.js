@@ -59,7 +59,7 @@ const info = html => {
     back: $('tr:nth-child(4) > td').text(),
     place: $('tr:nth-child(5) > td').text(),
     attach: $('tr:nth-child(6) > td').text(),
-    reLend: `http://ms.waplib.ncu.edu.cn/${$('tr:nth-child(7) > td > form').attr('action')}`
+    reLend: `http://ms.waplib.ncu.edu.cn/sms/opac/user/${$('tr:nth-child(7) > td > form').attr('action')}`
   }
   info.remain = getRemain(new Date(info.back))
   return info
