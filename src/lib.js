@@ -7,7 +7,7 @@ const asy = require('async')
 const async = require('asyncawait/async')
 const await = require('asyncawait/await')
 
-const booksInfo = file => new Promise(async(function (reslove, reject) {
+const booksInfo = file => new Promise(async((reslove, reject) => {
   let lists
   try {
     if (Array.isArray(file)) {
@@ -30,10 +30,10 @@ const booksInfo = file => new Promise(async(function (reslove, reject) {
   })
 }))
 
-const getPage = async(function (href, cb) {
+const getPage = async((href, cb) => {
   let options = {
     uri: href,
-    transform: function (body) {
+    transform(body) {
       return cheerio.load(body)
     }
   }

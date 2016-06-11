@@ -1,5 +1,7 @@
 const search = require('./../src/search.js')
-const { expect } = require('chai')
+const {
+  expect
+} = require('chai')
 
 describe('搜索模块测试', () => {
   it('搜索函数应该存在', () => {
@@ -21,7 +23,7 @@ describe('搜索模块测试', () => {
       })
       .catch(e => done(e))
   })
-  it('搜索结果的数组，应该包含标题等信息', done => {
+  it('搜索结果应该包含标题等信息', done => {
     search('web')
       .then(data => {
         let info = data[0]
