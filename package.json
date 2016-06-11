@@ -1,6 +1,6 @@
 {
   "name": "ncu-libary",
-  "version": "2.2.4",
+  "version": "2.3.0",
   "description": "NCU libary Helper",
   "main": "index.js",
   "scripts": {
