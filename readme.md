@@ -42,14 +42,15 @@ lib.search(bookname, page = 1)
 })
 
 // 续借
+
 ```javascript
 lib.relend(uri)
 .then(data => console.log(data)
 .catch(err => console.log(err)
 ```
 
-```
 ### 返回的格式：
+
 ```javascript
 [{ 
   // 图书标题
