@@ -1,5 +1,5 @@
 const lend = require('./../src/lend.js')
-const { expect } = require('chai')
+const expect = require('chai').expect
 
 describe('借阅模块测试', () => {
   it('借阅函数应该存在', () => {

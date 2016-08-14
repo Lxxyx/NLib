@@ -1,5 +1,7 @@
-var expect = require('chai').expect
-var { getTitle, isBorrow } = require('../src/utils/utils.js')
+const expect = require('chai').expect
+const utils = require('../src/utils/utils.js')
+const getTitle = utils.getTitle
+const isBorrow = utils.isBorrow
 
 // 标题正则的测试
 describe('标题正则', () => {
@@ -17,7 +19,7 @@ describe('标题正则', () => {
 // 书籍借阅状态的测试
 var canBorrow = {
   children: [{
-    data: "可借"
+    data: '可借'
   }]
 }
 

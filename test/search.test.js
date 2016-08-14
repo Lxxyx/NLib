@@ -1,7 +1,5 @@
 const search = require('./../src/search.js')
-const {
-  expect
-} = require('chai')
+const expect = require('chai').expect
 
 describe('搜索模块测试', () => {
   it('搜索函数应该存在', () => {

@@ -1,5 +1,5 @@
 const relend = require('./../src/relend.js')
-const { expect } = require('chai')
+const expect = require('chai').expect
 
 describe('续借模块测试', () => {
   it('续借函数应该存在', () => {
