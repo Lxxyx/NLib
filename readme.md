@@ -1,5 +1,5 @@
 ## 南昌大学图书馆插件 
-![build status](https://api.travis-ci.org/Lxxyx/ncu-libary.svg?branch=master) [![codecov](https://codecov.io/gh/Lxxyx/ncu-libary/branch/master/graph/badge.svg)](https://codecov.io/gh/Lxxyx/ncu-libary)
+![build status](https://api.travis-ci.org/Lxxyx/ncu-libary.svg?branch=master) [![codecov](https://codecov.io/gh/Lxxyx/ncu-libary/branch/master/graph/badge.svg)](https://codecov.io/gh/Lxxyx/ncu-libary)  ![total-download](https://img.shields.io/npm/dt/express.svg?maxAge=2592000) ![node-version](https://img.shields.io/npm/v/ncu-libary.svg?maxAge=2592000)
 ## 介绍
 用于查询图书是否能借阅。一次性查询多本图书，省时省力。
 同时设置并发数为5，防止被封禁。  
