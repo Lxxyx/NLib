@@ -2,7 +2,7 @@
 ![build status](https://api.travis-ci.org/Lxxyx/ncu-libary.svg?branch=master)
 ## 介绍
 用于查询图书是否能借阅。一次性查询多本图书，省时省力。
-同时设置并发数为5，防止被封禁。 
+同时设置并发数为5，防止被封禁。  
 ## 运行方式
 ```javascript
 npm install ncu-libary --save
